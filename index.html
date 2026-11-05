@@ -1,0 +1,226 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#050508">
+<title>PROJECT J.A.R.V.I.S.</title><style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: #030305;
+    color: white;
+    font-family: Arial, sans-serif;
+    overflow: hidden;
+}
+
+.container {
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    background: radial-gradient(circle, #17121c, #050508 65%, #000);
+}
+
+.container::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        transparent 49.8%,
+        rgba(0,180,255,.08) 50%,
+        transparent 50.2%
+    );
+    background-size: 100% 6px;
+    pointer-events: none;
+}
+
+.ring {
+    position: absolute;
+    width: 280px;
+    height: 280px;
+    border-radius: 50%;
+    border: 1px solid rgba(0,170,255,.5);
+    box-shadow: 0 0 30px rgba(0,150,255,.2),
+                inset 0 0 30px rgba(0,150,255,.1);
+    animation: rotate 10s linear infinite;
+}
+
+.ring::before {
+    content: "";
+    position: absolute;
+    inset: 18px;
+    border: 2px dashed rgba(255,50,40,.6);
+    border-radius: 50%;
+}
+
+.ring::after {
+    content: "";
+    position: absolute;
+    inset: 45px;
+    border: 1px solid rgba(0,170,255,.5);
+    border-radius: 50%;
+}
+
+.core {
+    width: 14px;
+    height: 14px;
+    background: #00bfff;
+    border-radius: 50%;
+    box-shadow: 0 0 30px #00bfff;
+    margin-bottom: 35px;
+    z-index: 2;
+    animation: pulse 1.5s infinite;
+}
+
+.status {
+    color: #00bfff;
+    font-size: 10px;
+    letter-spacing: 5px;
+    margin-bottom: 22px;
+    z-index: 2;
+}
+
+h1 {
+    font-size: clamp(35px, 10vw, 55px);
+    font-weight: 900;
+    letter-spacing: 7px;
+    background: linear-gradient(90deg, #fff, #ff3535, #dca638);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    z-index: 2;
+    animation: reveal 2s ease;
+}
+
+.line {
+    width: 140px;
+    height: 2px;
+    margin: 25px;
+    background: linear-gradient(90deg, transparent, red, #00bfff, transparent);
+    box-shadow: 0 0 15px red;
+    z-index: 2;
+}
+
+.verse {
+    color: #ddd;
+    font-size: 14px;
+    line-height: 2;
+    letter-spacing: 2px;
+    z-index: 2;
+    animation: fade 3s ease;
+}
+
+.verse span {
+    color: #ff3838;
+    font-weight: bold;
+}
+
+.system {
+    color: #00bfff;
+    font-size: 10px;
+    letter-spacing: 3px;
+    margin-top: 50px;
+    z-index: 2;
+}
+
+button {
+    margin-top: 30px;
+    padding: 13px 25px;
+    background: rgba(0,0,0,.5);
+    border: 1px solid #00bfff;
+    color: #00bfff;
+    letter-spacing: 3px;
+    font-size: 10px;
+    z-index: 3;
+}
+
+button:active {
+    background: #00bfff;
+    color: black;
+}
+
+.footer {
+    position: absolute;
+    bottom: 25px;
+    color: #666;
+    font-size: 9px;
+    letter-spacing: 3px;
+}
+
+@keyframes rotate {
+    to { transform: rotate(360deg); }
+}
+
+@keyframes pulse {
+    50% { opacity: .3; transform: scale(1.6); }
+}
+
+@keyframes reveal {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fade {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+</style></head><body><div class="container"><div class="ring"></div>
+
+<div class="core"></div>
+
+<div class="status">
+    J.A.R.V.I.S. SYSTEM ONLINE
+</div>
+
+<h1>SABARISH</h1>
+
+<div class="line"></div>
+
+<div class="verse">
+    Never mistake my silence<br>
+    for <span>WEAKNESS.</span>
+</div>
+
+<div class="system" id="message">
+    WELCOME BACK, SIR.
+</div>
+
+<button onclick="speak()">
+    INITIALIZE JARVIS
+</button>
+
+<div class="footer">
+    PROJECT J.A.R.V.I.S. | VERSION 1.0
+</div>
+
+</div><script>
+function speak() {
+    if (!window.speechSynthesis) {
+        alert("Voice is not supported.");
+        return;
+    }
+
+    speechSynthesis.cancel();
+
+    const speech = new SpeechSynthesisUtterance(
+        "Welcome back, sir. All systems are operational."
+    );
+
+    speech.rate = 0.9;
+    speech.pitch = 0.8;
+
+    speechSynthesis.speak(speech);
+
+    document.getElementById("message").innerText =
+        "ALL SYSTEMS OPERATIONAL";
+}
+</script></body>
+</html>
